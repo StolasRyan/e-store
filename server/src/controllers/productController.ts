@@ -61,7 +61,7 @@ export const createProduct = async(req:Request, res:Response) => {
     }
 }
 
-export const updateProduct = async(req:Request<{id:string}>, res:Response) => {
+export const updateProduct = async(req:Request, res:Response) => {
     try {
         const {userId} = getAuth(req);
         if(!userId) return res.status(401).json({ error: "Unauthorized" });
@@ -69,12 +69,12 @@ export const updateProduct = async(req:Request<{id:string}>, res:Response) => {
         const {id} = req.params;
         const {title, description, imageUrl} = req.body;
 
-        const existingProduct = await queries.getProductById(id);
+        const existingProduct = await queries.getProductById(id as string);
         if(!existingProduct) return res.status(404).json({ error: "Product not found" });
 
         if(existingProduct.userId !== userId) return res.status(403).json({ error: "Only the creator can update the product" });
 
-        const product = await queries.updateProduct(id, {
+        const product = await queries.updateProduct(id as string, {
             title,
             description,
             imageUrl

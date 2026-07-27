@@ -1,20 +1,31 @@
 import api  from "./axios";
 
-type UserData =  {
+export type UserData =  {
     id: string;
     email: string | undefined;
     name?: string | null;
     imageUrl?: string;
 }
-type Product = {
+export type Product = {
+    id: string;
     imageUrl: string;
+    createdAt: string;
+    updatedAt: string;
     title: string;
     description: string;
     userId: string;
-    id?: string;
+    user: {
+        id: string;
+        email: string;
+        name: string ;
+        imageUrl: string;
+        createdAt: Date;
+        updatedAt: Date;
+    };
+
 }
 
-type Comment = {
+export type Comment = {
     userId: string;
     content: string;
     productId: string;
@@ -28,7 +39,7 @@ export const syncUser = async(userData: Omit<UserData, 'id'>)=>{
 
 export const getAllProducts = async () => {
     const {data} = await api.get('/products')
-    return data
+    return data as Product[]
 }
 
 export const getProductById = async (id: string) => {
@@ -41,7 +52,7 @@ export const getMyProducts = async () => {
     return data
 }
 
-export const createProduct = async (productData: Product) => {
+export const createProduct = async (productData: Partial<Product>) => {
     const {data} = await api.post('/products', productData)
     return data
 }

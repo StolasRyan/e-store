@@ -14,7 +14,6 @@ const useUserSync = () => {
     useEffect(()=>{
 
         if(isSignedIn && user && !isPending && !isSuccess && !isError){
-            console.log('run');
             syncUserMutation({
                 email: user.primaryEmailAddress?.emailAddress as string,
                 name: user.fullName || user.username,

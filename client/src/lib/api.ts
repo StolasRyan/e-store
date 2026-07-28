@@ -41,7 +41,7 @@ export const createProduct = async (productData: Partial<Product>) => {
     return data
 }
 
-export const updateProduct = async ({id, ...productData}: Product) => {
+export const updateProduct = async ({id, productData}:{id: string, productData: Partial<Product>}) => {
     const {data} = await api.put(`/products/${id}`, productData)
     return data
 }

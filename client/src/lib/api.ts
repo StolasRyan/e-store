@@ -1,4 +1,5 @@
 import api  from "./axios";
+import type { Product } from "../types/product.types";
 
 export type UserData =  {
     id: string;
@@ -6,24 +7,7 @@ export type UserData =  {
     name?: string | null;
     imageUrl?: string;
 }
-export type Product = {
-    id: string;
-    imageUrl: string;
-    createdAt: string;
-    updatedAt: string;
-    title: string;
-    description: string;
-    userId: string;
-    user: {
-        id: string;
-        email: string;
-        name: string ;
-        imageUrl: string;
-        createdAt: Date;
-        updatedAt: Date;
-    };
 
-}
 
 export type Comment = {
     userId: string;
@@ -42,12 +26,12 @@ export const getAllProducts = async () => {
     return data as Product[]
 }
 
-export const getProductById = async (id: string) => {
+export const getProductById = async (id: string): Promise<Product> => {
     const {data} = await api.get(`/products/${id}`)
     return data
 }
 
-export const getMyProducts = async () => {
+export const getMyProducts = async (): Promise<Product[]> => {
     const {data} = await api.get('/products/my')
     return data
 }
@@ -69,11 +53,11 @@ export const deleteProduct = async (id: string) => {
 
 //COMMENTS
 
-export const createComment = async ({productId, content}: Comment) => {
-    const {data} = await api.post(`/comments/${productId}`, content)
+export const createComment = async ({productId, content}: {productId: string, content: string}) => {
+    const {data} = await api.post(`/comments/${productId}`, {content})
     return data
 }
-export const deleteComment = async (id: string) => {
-    const {data} = await api.delete(`/comments/${id}`)
+export const deleteComment = async ({commentId}: {commentId: string}) => {
+    const {data} = await api.delete(`/comments/${commentId}`)
     return data
 }

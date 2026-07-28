@@ -12,7 +12,6 @@ const CreatePage = () => {
     description:'',
     imageUrl:''
   });
-console.log(formData)
   const handleSubmit = async(e:React.SyntheticEvent<HTMLFormElement | HTMLTextAreaElement>)=>{
     e.preventDefault();
     createProduct.mutate(formData, {

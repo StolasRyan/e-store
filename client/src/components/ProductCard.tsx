@@ -1,5 +1,6 @@
 import { Link } from "react-router";
-import type { Product, Comment} from "../lib/api";
+import type { Comment} from "../lib/api";
+import type { Product } from "../types/product.types";
 import { MessageCircleIcon } from "lucide-react";
 
 
